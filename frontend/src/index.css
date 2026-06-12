@@ -17,6 +17,14 @@
 }
 
 /* Base styles */
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
 body {
   background-color: var(--color-dark-900);
   color: #e2e8f0;
@@ -74,8 +82,8 @@ body {
 
 /* Custom scrollbar for dark theme */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -89,4 +97,18 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #475569;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  html, body, #root {
+    overflow: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
 }

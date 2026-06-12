@@ -13,47 +13,81 @@ const navItems = [
 
 const Sidebar = () => {
   return (
-    <motion.aside 
-      initial={{ x: -250 }}
-      animate={{ x: 0 }}
-      className="w-64 glass-card border-l-0 border-y-0 rounded-none rounded-r-2xl flex flex-col z-20"
-    >
-      <div className="p-6">
-        <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-400 to-accent-400">
-          Smart Expressway
-        </h1>
-        <p className="text-xs text-slate-400 mt-1">Management System</p>
+    <>
+      {/* Mobile sidebar - horizontal scrollable */}
+      <div className="md:hidden w-full glass-card border-t-0 border-l-0 border-r-0 border-b border-slate-700/50">
+        <div className="p-4 text-center">
+          <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-400 to-accent-400">
+            Smart Expressway
+          </h1>
+        </div>
+        <nav className="flex overflow-x-auto gap-2 p-3">
+          {navItems.map((item) => (
+            <NavLink
+              key={item.name}
+              to={item.path}
+              className={({ isActive }) =>
+                `flex flex-col items-center gap-1 px-4 py-3 rounded-xl transition-all duration-300 min-w-[80px] ${
+                  isActive
+                    ? 'bg-primary-500/10 text-primary-400'
+                    : 'text-slate-400 hover:bg-dark-800 hover:text-slate-200'
+                }`
+              }
+            >
+              {({ isActive }) => (
+                <>
+                  <item.icon className={`w-6 h-6 ${isActive ? 'text-primary-500' : 'text-slate-500'}`} />
+                  <span className="text-xs font-medium">{item.name}</span>
+                </>
+              )}
+            </NavLink>
+          ))}
+        </nav>
       </div>
 
-      <nav className="flex-1 px-4 space-y-2 mt-4">
-        {navItems.map((item) => (
-          <NavLink
-            key={item.name}
-            to={item.path}
-            className={({ isActive }) =>
-              `flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 ${
-                isActive
-                  ? 'bg-primary-500/10 text-primary-400 shadow-inner'
-                  : 'text-slate-400 hover:bg-dark-800 hover:text-slate-200'
-              }`
-            }
-          >
-            {({ isActive }) => (
-              <>
-                <item.icon className={`w-5 h-5 ${isActive ? 'text-primary-500' : 'text-slate-500'}`} />
-                <span className="font-medium">{item.name}</span>
-                {isActive && (
-                  <motion.div 
-                    layoutId="activeTab"
-                    className="absolute left-0 w-1 h-8 bg-primary-500 rounded-r-full" 
-                  />
-                )}
-              </>
-            )}
-          </NavLink>
-        ))}
-      </nav>
-    </motion.aside>
+      {/* Desktop sidebar */}
+      <motion.aside 
+        initial={{ x: -250 }}
+        animate={{ x: 0 }}
+        className="hidden md:flex w-64 glass-card border-l-0 border-y-0 rounded-none rounded-r-2xl flex flex-col z-20"
+      >
+        <div className="p-6">
+          <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-400 to-accent-400">
+            Smart Expressway
+          </h1>
+          <p className="text-xs text-slate-400 mt-1">Management System</p>
+        </div>
+
+        <nav className="flex-1 px-4 space-y-2 mt-4">
+          {navItems.map((item) => (
+            <NavLink
+              key={item.name}
+              to={item.path}
+              className={({ isActive }) =>
+                `flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 ${
+                  isActive
+                    ? 'bg-primary-500/10 text-primary-400 shadow-inner'
+                    : 'text-slate-400 hover:bg-dark-800 hover:text-slate-200'
+                }`
+              }
+            >
+              {({ isActive }) => (
+                <>
+                  <item.icon className={`w-5 h-5 ${isActive ? 'text-primary-500' : 'text-slate-500'}`} />
+                  <span className="font-medium">{item.name}</span>
+                  {isActive && (
+                    <motion.div 
+                      layoutId="activeTab"
+                      className="absolute left-0 w-1 h-8 bg-primary-500 rounded-r-full" 
+                    />
+                  )}
+                </>
+              )}
+            </NavLink>
+          ))}
+        </nav>
+      </motion.aside>
+    </>
   );
 };
 
