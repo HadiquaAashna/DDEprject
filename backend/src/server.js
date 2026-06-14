@@ -5,7 +5,6 @@ const cors = require('cors');
 const http = require('http');
 const { Server } = require('socket.io');
 
-const authRoutes = require('./routes/auth');
 const vehicleRoutes = require('./routes/vehicles');
 const tollRoutes = require('./routes/tolls');
 const dsaRoutes = require('./routes/dsa');
@@ -49,7 +48,6 @@ io.on('connection', (socket) => {
 });
 
 // Routes
-app.use('/api/auth', authRoutes);
 app.use('/api/vehicles', vehicleRoutes);
 app.use('/api/tolls', tollRoutes);
 app.use('/api/dsa', dsaRoutes);
