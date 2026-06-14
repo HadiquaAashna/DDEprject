@@ -10,12 +10,14 @@ const { bellmanFord } = require('../dsa-engine/BellmanFord');
 
 // Helper to build graph from DB
 const buildGraph = async () => {
-  const routes = await Route.find().populate('fromCity').populate('toCity');
+  const allRoutes = await Route.find().populate('fromCity').populate('toCity');
   const cities = await City.find();
   const graph = {};
   
+  // Filter out routes that have missing/deleted cities
+  const routes = allRoutes.filter(r => r.fromCity && r.toCity);
+  
   routes.forEach(r => {
-    if (!r.fromCity || !r.toCity) return;
     const from = r.fromCity._id.toString();
     const to = r.toCity._id.toString();
     

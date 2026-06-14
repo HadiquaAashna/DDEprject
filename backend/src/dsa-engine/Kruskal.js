@@ -9,6 +9,10 @@ class DisjointSet {
   }
 
   find(i) {
+    if (this.parent[i] === undefined) {
+      this.parent[i] = i;
+      this.rank[i] = 0;
+    }
     if (this.parent[i] === i) return i;
     // Path compression
     this.parent[i] = this.find(this.parent[i]);

@@ -13,22 +13,32 @@ const data = [
   { name: 'Sun', traffic: 3490 },
 ];
 
-const StatCard = ({ title, value, icon: Icon, color, delay }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ delay, duration: 0.5 }}
-    className="glass-card p-4 md:p-6 flex items-center gap-3 md:gap-4 hover:border-slate-600 transition-colors cursor-pointer group"
-  >
-    <div className={`p-3 md:p-4 rounded-xl bg-${color}-500/10 text-${color}-400 group-hover:scale-110 transition-transform`}>
-      <Icon className="w-6 h-6 md:w-8 md:h-8" />
-    </div>
-    <div>
-      <p className="text-xs md:text-sm text-slate-400 font-medium">{title}</p>
-      <h3 className="text-xl md:text-2xl font-bold text-slate-200">{value}</h3>
-    </div>
-  </motion.div>
-);
+const colorClasses = {
+  primary: 'bg-primary-500/10 text-primary-400',
+  accent: 'bg-accent-500/10 text-accent-400',
+  emerald: 'bg-emerald-500/10 text-emerald-400',
+  rose: 'bg-rose-500/10 text-rose-400'
+};
+
+const StatCard = ({ title, value, icon: Icon, color, delay }) => {
+  const colorClass = colorClasses[color] || 'bg-slate-500/10 text-slate-400';
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay, duration: 0.5 }}
+      className="glass-card p-4 md:p-6 flex items-center gap-3 md:gap-4 hover:border-slate-600 transition-colors cursor-pointer group"
+    >
+      <div className={`p-3 md:p-4 rounded-xl ${colorClass} group-hover:scale-110 transition-transform`}>
+        <Icon className="w-6 h-6 md:w-8 md:h-8" />
+      </div>
+      <div>
+        <p className="text-xs md:text-sm text-slate-400 font-medium">{title}</p>
+        <h3 className="text-xl md:text-2xl font-bold text-slate-200">{value}</h3>
+      </div>
+    </motion.div>
+  );
+};
 
 const Dashboard = () => {
   return (
